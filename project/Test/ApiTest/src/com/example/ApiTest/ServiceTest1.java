@@ -56,7 +56,7 @@ public class ServiceTest1 extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            String msg = String.format("服务%s,onServiceDisconnected：name=%s", "service1", name);
+            String msg = String.format("Service% s, onServiceDisconnected: name =% s", "service1", name);
             Toast.makeText(ServiceTest1.this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         }
@@ -80,7 +80,7 @@ public class ServiceTest1 extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            String msg = String.format("服务%s,onServiceDisconnected：name=%s", "service2", name);
+            String msg = String.format("Service% s, onServiceDisconnected: name =% s", "service2", name);
             Toast.makeText(ServiceTest1.this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         }
@@ -92,42 +92,42 @@ public class ServiceTest1 extends AppCompatActivity implements OnClickListener {
         int id = v.getId();
         if (id == R.id.button1) {
             boolean re = context.bindService(service1, sc1, Context.BIND_AUTO_CREATE);
-            String msg = String.format("绑定服务%s,结果：%s", "service1", re);
+            String msg = String.format("Binding service% s, result:% s", "service1", re);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button2) {
             context.unbindService(sc1);
-            String msg = String.format("解绑服务%s", "service1");
+            String msg = String.format("Unbundling service% s", "service1");
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button3) {
             boolean re = context.bindService(service2, sc2, Context.BIND_AUTO_CREATE);
-            String msg = String.format("绑定服务%s,结果：%s", "service2", re);
+            String msg = String.format("Binding service% s, result:% s", "service2", re);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button4) {
             context.unbindService(sc2);
-            String msg = String.format("解绑服务%s", "service2");
+            String msg = String.format("Unbundling service% s", "service2");
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button5) {
             ComponentName cn = context.startService(service1);
-            String msg = String.format("启动服务%s,结果：%s", "service1", cn);
+            String msg = String.format("Starting service% s, result:% s", "service1", cn);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button6) {
             boolean re = context.stopService(service1);
-            String msg = String.format("停止服务%s,结果：%s", "service1", re);
+            String msg = String.format("Stop service% s, result:% s", "service1", re);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button7) {
             ComponentName cn = context.startService(service2);
-            String msg = String.format("启动服务%s,结果：%s", "service2", cn);
+            String msg = String.format("Starting service% s, result:% s", "service2", cn);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button8) {
             boolean re = context.stopService(service2);
-            String msg = String.format("停止服务%s,结果：%s", "service2", re);
+            String msg = String.format("Stop service% s, result:% s", "service2", re);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         }

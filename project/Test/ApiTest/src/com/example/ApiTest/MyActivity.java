@@ -46,7 +46,7 @@ public class MyActivity extends AppCompatActivity implements OnClickListener {
         } else if (id == R.id.button3) {
             startActivity(new Intent(this, BroadcastReceiverTest.class));
         } else if (id == R.id.button4) {
-            Toast.makeText(this, "哈哈Tost成功显示", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Haha Tost success shows", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.button5) {
             startActivity(new Intent(this, NotificationTest.class));
         } else if (id == R.id.button6) {

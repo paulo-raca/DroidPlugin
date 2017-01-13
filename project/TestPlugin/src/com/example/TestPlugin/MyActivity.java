@@ -48,9 +48,9 @@ public class MyActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
-                return "已安装";
+                return "Installed";
             } else {
-                return "待安装";
+                return "To be installed";
             }
         }
     };
@@ -77,7 +77,7 @@ public class MyActivity extends AppCompatActivity {
             public void run() {
                 try {
                     StringBuilder sb = new StringBuilder();
-                    Log.e(TAG, "===========包权限start===========");
+                    Log.e(TAG, "=========== Package permissions start ===========");
                     Set<String> ps = new TreeSet<String>();
                     for (PackageInfo pkg : pkgs) {
                         if (pkg.permissions != null && pkg.permissions.length > 0) {
@@ -110,7 +110,7 @@ public class MyActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    Log.e(TAG, "===========包权限end===========");
+                    Log.e(TAG, "=========== Package Permissions end ===========");
                 } catch (NameNotFoundException e) {
                     e.printStackTrace();
                 }

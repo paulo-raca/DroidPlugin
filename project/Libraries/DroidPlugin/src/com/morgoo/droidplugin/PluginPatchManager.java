@@ -12,7 +12,7 @@ import com.morgoo.droidplugin.pm.PluginManager;
  * Created by zhanglong on 2015/12/21.
  */
 
-// 处理插件异常情况
+// Handle exceptions plug
 public class PluginPatchManager {
 
     private static final int MAX_WAIT_DAEAMON_TIME = 5000;
@@ -34,7 +34,7 @@ public class PluginPatchManager {
         mContext = context;
     }
 
-    // 是否可以启动插件的activity
+    // Can you start activity widget
     public boolean canStartPluginActivity(Intent intent) {
         if (intent == null || PluginManager.getInstance().isConnected())
             return true;

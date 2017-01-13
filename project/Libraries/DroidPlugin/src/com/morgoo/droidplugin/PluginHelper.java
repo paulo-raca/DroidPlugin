@@ -105,10 +105,10 @@ public class PluginHelper implements ServiceConnection {
         }
     }
 
-    //解决小米JLB22.0 4.1.1系统自带的小米安全中心（lbe.security.miui）广告拦截组件导致的插件白屏问题
+    // Solve millet millet system comes JLB22.0 4.1.1 Security Center (lbe.security.miui) due to ad-blocking plug assembly black and white issue
     private void fixMiUiLbeSecurity() throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        //卸载掉LBE安全的ApplicationLoaders.mLoaders钩子
+        // Uninstall LBE security ApplicationLoaders.mLoaders hook
         Class ApplicationLoaders = Class.forName("android.app.ApplicationLoaders");
         Object applicationLoaders = MethodUtils.invokeStaticMethod(ApplicationLoaders, "getDefault");
         Object mLoaders = FieldUtils.readField(applicationLoaders, "mLoaders", true);
@@ -121,7 +121,7 @@ public class PluginHelper implements ServiceConnection {
             }
         }
 
-        //卸载掉LBE安全的ActivityThread.mPackages钩子
+        // Uninstall LBE security ActivityThread.mPackages hook
         Object currentActivityThread = ActivityThreadCompat.currentActivityThread();
         Object mPackages = FieldUtils.readField(currentActivityThread, "mPackages", true);
         if (mPackages instanceof HashMap) {
@@ -133,7 +133,7 @@ public class PluginHelper implements ServiceConnection {
             }
         }
 
-        //当前已经处在主线程消息队列中的所有消息,找出lbe消息并remove之
+        // Currently already in the main thread message queue all messages to identify and remove the message lbe
         if (Looper.getMainLooper() == Looper.myLooper()) {
             final MessageQueue queue = Looper.myQueue();
             try {
@@ -148,8 +148,8 @@ public class PluginHelper implements ServiceConnection {
         }
     }
 
-    //由于消息队列是一个单向链表，我们递归处理。
-    //递归当前已经处在主线程消息队列中的所有消息,找出lbe消息并remove之
+    // Since the message queue is a singly linked list, we recursively.
+    // Recursive already present in the main thread message queue all messages to identify and remove the message lbe
     private void findLbeMessageAndRemoveIt(Message message) {
         if (message == null) {
             return;

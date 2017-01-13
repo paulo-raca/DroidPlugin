@@ -67,7 +67,7 @@ public class IWifiManagerBinderHook extends BinderHook {
         fixZTESecurity();
     }
 
-    /**适配ZTE S2005机型ZTESecurity*/
+    /** Adaptation ZTE S2005 models ZTESecurity */
     private void fixZTESecurity() {
         try {
             Object proxyServiceIBinder =  MyServiceManager.getProxiedObj(getServiceName());

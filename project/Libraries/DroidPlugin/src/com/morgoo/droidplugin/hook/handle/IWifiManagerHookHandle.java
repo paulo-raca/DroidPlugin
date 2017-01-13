@@ -83,7 +83,7 @@ public class IWifiManagerHookHandle extends BaseHookHandle {
             super(hostContext);
         }
 
-        //bugfix 一个外网崩溃
+        // Bugfix an external network collapse
 //        Date:2015-08-03 14:05:55
 //                ----------------------------------------System Infomation-----------------------------------
 //        AppPkgName:com.qihoo.appstore
@@ -155,7 +155,7 @@ public class IWifiManagerHookHandle extends BaseHookHandle {
 //        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2172)
 //                ... 11 more
 //        ============================
-//               17个 ，总共10643个,占比0.15972939960537444%
+// 17, a total of 10,643, accounting for .15972939960537444%
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {

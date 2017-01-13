@@ -66,8 +66,8 @@ public class NativeLibraryHelperCompat {
 
             String abi = null;
 
-            //在64位处理器中，如果导入的so库未包含64位的，比如只导入了armeabi，此时就会找不到该abi。
-            //应该在32位abi中再次寻找。
+            // 64-bit processors, so if you import the library does not contain a 64-bit, for example, only imported armeabi, this time it will not find the abi.
+            // 32-bit abi should find again.
             if (isVM64()) {
                 if (Build.SUPPORTED_64_BIT_ABIS.length > 0) {
                     Set<String> abis = getAbisFromApk(apkFile.getAbsolutePath());
@@ -80,7 +80,7 @@ public class NativeLibraryHelperCompat {
                     }
                 }
             } //else {
-            //如果abi为空，再次查找。
+            // If abi is empty, look again.
             if(abi == null){
                 if (Build.SUPPORTED_32_BIT_ABIS.length > 0) {
                     Set<String> abis = getAbisFromApk(apkFile.getAbsolutePath());

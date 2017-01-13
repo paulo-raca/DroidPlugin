@@ -65,7 +65,7 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                 version.setText(String.format("%s(%s)", item.versionName, item.versionCode));
 
                 TextView btn3 = (TextView) convertView.findViewById(R.id.button3);
-                btn3.setText("删除");
+                btn3.setText("delete");
                 btn3.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -76,16 +76,16 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                 TextView btn = (TextView) convertView.findViewById(R.id.button2);
                 try {
                     if (item.installing) {
-                        btn.setText("安装中ing");
+                        btn.setText("Installation ing");
                     } else {
                         if (PluginManager.getInstance().isConnected()) {
-                            btn.setText(PluginManager.getInstance().getPackageInfo(item.packageInfo.packageName, 0) != null ? "已经安装" : "安装");
+                            btn.setText(PluginManager.getInstance().getPackageInfo(item.packageInfo.packageName, 0) != null ? "Installed" : "installation");
                         } else {
-                            btn.setText("等待初始化服务");
+                            btn.setText("Wait Initialization service");
                         }
                     }
                 } catch (Exception e) {
-                    btn.setText("安装1");
+                    btn.setText("Installation 1");
                 }
                 btn.setOnClickListener(new OnClickListener() {
 
@@ -104,17 +104,17 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
 
     private void doUninstall(final ApkItem item) {
         AlertDialog.Builder builder = new Builder(getActivity());
-        builder.setTitle("警告，你确定要删除么？");
-        builder.setMessage("警告，你确定要删除" + item.title + "么？");
-        builder.setNegativeButton("删除", new DialogInterface.OnClickListener() {
+        builder.setTitle("Warning, you sure you want to delete it?");
+        builder.setMessage("Warning Are you sure you want to delete" + item.title + "What?");
+        builder.setNegativeButton("delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 new File(item.apkfile).delete();
                 adapter.remove(item);
-                Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "successfully deleted", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNeutralButton("取消", null);
+        builder.setNeutralButton("cancel", null);
         builder.show();
     }
 
@@ -124,7 +124,7 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
-        setEmptyText("没有在sdcard找到apk");
+        setEmptyText("I did not find the apk in sdcard");
         setListAdapter(adapter);
         setListShown(false);
         getListView().setOnItemClickListener(null);
@@ -168,7 +168,7 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                         if (grantResult == PackageManager.PERMISSION_GRANTED) {
                             startLoadInner();
                         } else {
-                            Toast.makeText(getActivity(), "没有授权，无法使用", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "There is no authorization can not be used.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -249,11 +249,11 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                 return;
             }
             if (!PluginManager.getInstance().isConnected()) {
-                Toast.makeText(getActivity(), "插件服务正在初始化，请稍后再试。。。", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Widget Service is initializing, please try again later ...", Toast.LENGTH_SHORT).show();
             }
             try {
                 if (PluginManager.getInstance().getPackageInfo(item.packageInfo.packageName, 0) != null) {
-                    Toast.makeText(getActivity(), "已经安装了，不能再安装", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Has been installed, you can not install", Toast.LENGTH_SHORT).show();
                 } else {
                     new Thread() {
                         @Override
@@ -295,13 +295,13 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                 public void run() {
                     switch (re) {
                         case PluginManager.INSTALL_FAILED_NO_REQUESTEDPERMISSION:
-                            Toast.makeText(getActivity(), "安装失败，文件请求的权限太多", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Installation failed, too many permissions to the requested file.", Toast.LENGTH_SHORT).show();
                             break;
                         case INSTALL_FAILED_NOT_SUPPORT_ABI:
-                            Toast.makeText(getActivity(), "宿主不支持插件的abi环境，可能宿主运行时为64位，但插件只支持32位", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Host does not support plug-abi environment, the host may be running a 64-bit, but only supports 32-bit plug-ins.", Toast.LENGTH_SHORT).show();
                             break;
                         case INSTALL_SUCCEEDED:
-                            Toast.makeText(getActivity(), "安装完成", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "The installation is complete", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
                             break;
                     }

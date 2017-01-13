@@ -46,15 +46,15 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * 这是一个比较复杂的进程管理服务。
- * 主要实现的功能为：
- * 1、系统预定义N个进程。每个进程下有4中launchmod的activity，1个服务，一个ContentProvider。
- * 2、每个插件可以在多个进程中运行，这由插件自己的processName属性决定。
- * 3、插件系统最多可以同时运行N个进程，M个插件(M <= N or M >= N)。
- * 4、多个插件运行在同一个进程中，如果他们的签名相同。（我们可以通过一个开关来决定。）
- * 5、在运行第M+1个插件时，如果预定义的N个进程被占满，最低优先级的进程会被kill掉。腾出预定义的进程用来运行此个插件。
- * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
- */
+ * This is a more complex process management services.
+ * Main function is:
+ * 1, N predefined system processes. There are 4 launchmod of activity, 1 Ge service, a ContentProvider under each process.
+ * 2, each plug-in can run in multiple processes, which is determined by the plug-in their own processName property.
+ * 3, plug-in system can run simultaneously processes N, M plug (M <= N or M> = N).
+ * 4, a plurality of plug-in running in the same process, the same as if their signatures. (We can be determined by a switch.)
+ * 5, when running the first M + 1 plug, if N predefined processes is occupied, the lowest-priority process is kill off. Vacate the predefined processes to run this plug-ins.
+ * Created by Andy Zhang (zhangyong232@gmail.com) on 2015/3/10.
+ */
 public class MyActivityManagerService extends BaseActivityManagerService {
 
     private static final String TAG = MyActivityManagerService.class.getSimpleName();
@@ -112,7 +112,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     public ProviderInfo selectStubProviderInfo(int callingPid, int callingUid, ProviderInfo targetInfo) throws RemoteException {
         runProcessGC();
 
-        //先从正在运行的进程中查找看是否有符合条件的进程，如果有则直接使用之
+        // Start the process of running look to see whether there is compliance with the conditions of the process, if there is a direct use of
         String stubProcessName1 = mRunningProcessList.getStubProcessByTarget(targetInfo);
         if (stubProcessName1 != null) {
             List<ProviderInfo> stubInfos = mStaticProcessList.getProviderInfoForProcessName(stubProcessName1);
@@ -128,14 +128,14 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         for (String stubProcessName : stubProcessNames) {
             List<ProviderInfo> stubInfos = mStaticProcessList.getProviderInfoForProcessName(stubProcessName);
             if (mRunningProcessList.isProcessRunning(stubProcessName)) {
-                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
+                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {// Empty process, not running any add-on package.
                     for (ProviderInfo stubInfo : stubInfos) {
                         if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
                             mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
                             return stubInfo;
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else if (mRunningProcessList.isPkgCanRunInProcess(targetInfo.packageName, stubProcessName, targetInfo.processName)) {
                     for (ProviderInfo stubInfo : stubInfos) {
                         if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
@@ -143,9 +143,9 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                             return stubInfo;
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else {
-                    //需要处理签名一样的情况。
+                    // We need to process signed the same situation.
                 }
             } else {
                 for (ProviderInfo stubInfo : stubInfos) {
@@ -154,10 +154,10 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                         return stubInfo;
                     }
                 }
-                throw throwException("没有找到合适的StubInfo");
+                throw throwException("I did not find the right StubInfo");
             }
         }
-        throw throwException("没有可用的进程了");
+        throw throwException("There is no process available with");
     }
 
 
@@ -176,7 +176,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     public ServiceInfo selectStubServiceInfo(int callingPid, int callingUid, ServiceInfo targetInfo) throws RemoteException {
         runProcessGC();
 
-        //先从正在运行的进程中查找看是否有符合条件的进程，如果有则直接使用之
+        // Start the process of running look to see whether there is compliance with the conditions of the process, if there is a direct use of
         String stubProcessName1 = mRunningProcessList.getStubProcessByTarget(targetInfo);
         if (stubProcessName1 != null) {
             List<ServiceInfo> stubInfos = mStaticProcessList.getServiceInfoForProcessName(stubProcessName1);
@@ -191,15 +191,15 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         List<String> stubProcessNames = mStaticProcessList.getProcessNames();
         for (String stubProcessName : stubProcessNames) {
             List<ServiceInfo> stubInfos = mStaticProcessList.getServiceInfoForProcessName(stubProcessName);
-            if (mRunningProcessList.isProcessRunning(stubProcessName)) {//该预定义的进程正在运行。
-                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
+            if (mRunningProcessList.isProcessRunning(stubProcessName)) {// The predefined processes are running.
+                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {// Empty process, not running any add-on package.
                     for (ServiceInfo stubInfo : stubInfos) {
                         if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
                             mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
                             return stubInfo;
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else if (mRunningProcessList.isPkgCanRunInProcess(targetInfo.packageName, stubProcessName, targetInfo.processName)) {
                     for (ServiceInfo stubInfo : stubInfos) {
                         if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
@@ -207,21 +207,21 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                             return stubInfo;
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else {
-                    //这里需要考虑签名一样的情况，多个插件公用一个进程。
+                    // To consider here signature the same situation, a plurality of plug-public process.
                 }
-            } else { //该预定义的进程没有。
+            } else { // This process is not predefined.
                 for (ServiceInfo stubInfo : stubInfos) {
                     if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
                         mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
                         return stubInfo;
                     }
                 }
-                throw throwException("没有找到合适的StubInfo");
+                throw throwException("I did not find the right StubInfo");
             }
         }
-        throw throwException("没有可用的进程了");
+        throw throwException("There is no process available with");
     }
 
     private RemoteException throwException(String msg) {
@@ -311,7 +311,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
 
         boolean useDialogStyle = Window_windowIsTranslucent || Window_windowIsFloating || Window_windowShowWallpaper;
 
-        //先从正在运行的进程中查找看是否有符合条件的进程，如果有则直接使用之
+        // Start the process of running look to see whether there is compliance with the conditions of the process, if there is a direct use of
         String stubProcessName1 = mRunningProcessList.getStubProcessByTarget(targetInfo);
         if (stubProcessName1 != null) {
             List<ActivityInfo> stubInfos = mStaticProcessList.getActivityInfoForProcessName(stubProcessName1, useDialogStyle);
@@ -331,8 +331,8 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         List<String> stubProcessNames = mStaticProcessList.getProcessNames();
         for (String stubProcessName : stubProcessNames) {
             List<ActivityInfo> stubInfos = mStaticProcessList.getActivityInfoForProcessName(stubProcessName, useDialogStyle);
-            if (mRunningProcessList.isProcessRunning(stubProcessName)) {//该预定义的进程正在运行。
-                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
+            if (mRunningProcessList.isProcessRunning(stubProcessName)) {// The predefined processes are running.
+                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {// Empty process, not running any add-on package.
                     for (ActivityInfo stubInfo : stubInfos) {
                         if (stubInfo.launchMode == targetInfo.launchMode) {
                             if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
@@ -344,7 +344,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                             }
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else if (mRunningProcessList.isPkgCanRunInProcess(targetInfo.packageName, stubProcessName, targetInfo.processName)) {
                     for (ActivityInfo stubInfo : stubInfos) {
                         if (stubInfo.launchMode == targetInfo.launchMode) {
@@ -357,11 +357,11 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                             }
                         }
                     }
-                    throw throwException("没有找到合适的StubInfo");
+                    throw throwException("I did not find the right StubInfo");
                 } else {
-                    //这里需要考虑签名一样的情况，多个插件公用一个进程。
+                    // To consider here signature the same situation, a plurality of plug-public process.
                 }
-            } else { //该预定义的进程没有。
+            } else { // This process is not predefined.
                 for (ActivityInfo stubInfo : stubInfos) {
                     if (stubInfo.launchMode == targetInfo.launchMode) {
                         if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
@@ -373,10 +373,10 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                         }
                     }
                 }
-                throw throwException("没有找到合适的StubInfo");
+                throw throwException("I did not find the right StubInfo");
             }
         }
-        throw throwException("没有可用的进程了");
+        throw throwException("There is no process available with");
     }
 
     private static final Comparator<RunningAppProcessInfo> sProcessComparator = new Comparator<RunningAppProcessInfo>() {
@@ -392,7 +392,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         }
     };
 
-    //运行进程GC
+    // Run the GC process
     private void runProcessGC() {
         if (mHostContext == null) {
             return;
@@ -430,14 +430,14 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                 doGc(myInfo);
             } else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_SERVICE) {
                 doGc(myInfo);
-            } /*else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_CANT_SAVE_STATE) {
-                //杀死进程，不能保存状态。但是关我什么事？
-            }*/ else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE) {
-                //杀死进程
+            } /* Else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_CANT_SAVE_STATE) {
+                // Kill the process, the state can not be saved. But my business?
+            } */ else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE) {
+                // Kill the process
             } else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                //看得见
+                //visible
             } else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                //前台进程。
+                // Foreground process.
             }
         }
 
@@ -448,7 +448,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         int serviceCount = mRunningProcessList.getServiceCountByPid(myInfo.pid);
         int providerCount = mRunningProcessList.getProviderCountByPid(myInfo.pid);
         if (activityCount <= 0 && serviceCount <= 0 && providerCount <= 0) {
-            //杀死空进程。
+            // Kill empty processes.
             Log.i(TAG, "doGc kill process(pid=%s,uid=%s processName=%s)", myInfo.pid, myInfo.uid, myInfo.processName);
             try {
                 android.os.Process.killProcess(myInfo.pid);

@@ -177,7 +177,7 @@ public class PluginProcessManager {
             return;
         }
 
-        /*添加插件的LoadedApk对象到ActivityThread.mPackages*/
+        /* Add widget LoadedApk objects to ActivityThread.mPackages */
 
         boolean found = false;
         synchronized (sPluginLoadedApkCache) {
@@ -359,14 +359,14 @@ public class PluginProcessManager {
         sSkipService.add("captioning");
         sSkipService.add("account");
         sSkipService.add("activity");
-        //fake这个wifiscanner服务可能会导致部分手机重启。例如三星，华为
+        // Fake wifiscanner this service may cause some phones to restart. For example, Samsung, Huawei
         sSkipService.add("wifiscanner");
         sSkipService.add("rttmanager");
         sSkipService.add("tv_input");
         sSkipService.add("jobscheduler");
         sSkipService.add("sensorhub");
         
-        //NSDManager init初始化anr的问题
+        // NSDManager init initialization problem anr
         sSkipService.add("servicediscovery");
 //        sSkipService.add("usagestats");
 
@@ -408,7 +408,7 @@ public class PluginProcessManager {
             }
 
             if (SYSTEM_SERVICE_MAP != null && (SYSTEM_SERVICE_MAP instanceof Map)) {
-                //如没有，则创建一个新的。
+                // If not, then create a new one.
                 Map<?, ?> sSYSTEM_SERVICE_MAP = (Map<?, ?>) SYSTEM_SERVICE_MAP;
                 Context originContext = getBaseContext(hostContext);
 
@@ -457,7 +457,7 @@ public class PluginProcessManager {
         }
     }
 
-    //这里为了解决某些插件调用系统服务时，系统服务必须要求要以host包名的身份去调用的问题。
+    // Here in order to solve some of the plug-in calls system services, system service must ask questions to the package as a host name to call.
     public static void fakeSystemService(Context hostContext, Context targetContext) {
         if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && !TextUtils.equals(hostContext.getPackageName(), targetContext.getPackageName())) {
             long b = System.currentTimeMillis();

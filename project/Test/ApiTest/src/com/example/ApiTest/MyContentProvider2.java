@@ -33,9 +33,9 @@ public class MyContentProvider2 extends ContentProvider {
         String msg = String.format(">>>>%s query:uri=%s, projection=%s, selection=%s,selectionArgs=%s, sortOrder=%s", TAG, uri, projection, selection, Arrays.toString(selectionArgs), sortOrder);
         showMsg(msg);
         MatrixCursor c = new MatrixCursor(new String[]{"name", "sex"});
-        c.addRow(new String[]{"张三", "男"});
-        c.addRow(new String[]{"李四", "女"});
-        c.addRow(new String[]{"王武", "不男不女"});
+        c.addRow(new String[]{"John Doe", "male"});
+        c.addRow(new String[]{"John Doe", "Female"});
+        c.addRow(new String[]{"King Wu", "Androgynous"});
         return c;
     }
 

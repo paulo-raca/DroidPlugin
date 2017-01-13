@@ -98,10 +98,10 @@ public class IActivityManagerHook extends ProxyHook {
             final Object object = MyProxy.newProxyInstance(mOldObj.getClass().getClassLoader(), ifs, IActivityManagerHook.this);
             Object iam1 = ActivityManagerNativeCompat.getDefault();
 
-            //这里先写一次，防止后面找不到Singleton类导致的挂钩子失败的问题。
+            // Here to write once, to prevent later find Singleton class causes linked to child fail.
             FieldUtils.writeField(obj, "mInstance", object);
 
-            //这里使用方式1，如果成功的话，会导致上面的写操作被覆盖。
+            // Use 1 here, if successful, will lead to the above write operation is covered.
             FieldUtils.writeStaticField(cls, "gDefault", new android.util.Singleton<Object>() {
                 @Override
                 protected Object create() {
@@ -112,9 +112,9 @@ public class IActivityManagerHook extends ProxyHook {
 
             Log.i(TAG, "Install ActivityManager Hook 2 old=%s,new=%s", mOldObj.toString(), object);
             Object iam2 = ActivityManagerNativeCompat.getDefault();
-            // 方式2
+            // Mode 2
             if (iam1 == iam2) {
-                //这段代码是废的，没啥用，写这里只是不想改而已。
+                // This code is a dud, futile, write here just do not want to change it.
                 FieldUtils.writeField(obj, "mInstance", object);
             }
         } else {

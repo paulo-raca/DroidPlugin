@@ -64,8 +64,8 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
             Map sCache = (Map) sCacheObj;
             Object Obj = sCache.get(mServiceName);
             if (Obj != null && false) {
-                //FIXME 已经有了怎么处理？这里我们只是把原来的给remove掉，再添加自己的。程序下次取用的时候就变成我们hook过的了。
-                //但是这样有缺陷。
+                // FIXME already how to deal with? Here we just had to remove off, and then add your own. Access to the program next time we become ever hook up.
+                // But this flawed.
                 throw new RuntimeException("Can not install binder hook for " + mServiceName);
             } else {
                 sCache.remove(mServiceName);

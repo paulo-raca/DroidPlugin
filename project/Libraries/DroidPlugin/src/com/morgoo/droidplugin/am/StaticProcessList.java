@@ -61,10 +61,10 @@ class StaticProcessList {
 
 
     /**
-     * 我们预注册的进程item
-     * <p/>
-     * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
-     */
+     * Our pre-registration process item
+     * <P />
+     * Created by Andy Zhang (zhangyong232@gmail.com) on 2015/3/10.
+     */
     private class ProcessItem {
 
         private String name;

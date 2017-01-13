@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 正在运行的Activity列表
- * Created by zhangyong6 on 2015/10/20.
- */
+ * List Activity Running
+ * Created by zhangyong6 on 2015/10/20.
+ */
 public class RunningActivities {
 
     private static final String TAG = RunningActivities.class.getSimpleName();
@@ -83,7 +83,7 @@ public class RunningActivities {
         }
     }
 
-    //在启动一个Activity时调用
+    // When you start a call Activity
     public static void beforeStartActivity() {
         synchronized (mRunningActivityList) {
             for (RunningActivityRecord record : mRunningActivityList.values()) {

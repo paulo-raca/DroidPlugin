@@ -200,7 +200,7 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                         Log.e(TAG, "We has blocked a notification[%s]", notification);
                         return true;
                     } else {
-                        //这里要修改通知。
+                        // Here To modify the notification.
                         hackNotification(notification);
                         return false;
                     }
@@ -231,7 +231,7 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                         Class ReflectionActionClass = Class.forName(RemoteViews.class.getName() + "$ReflectionAction");
                         while (iterable.hasNext()) {
                             Object action = iterable.next();
-                            if (ReflectionActionClass.isInstance(action)) {//???这里这样是对的么？
+                            if (ReflectionActionClass.isInstance(action)) {// ??? So here is it?
                                 String methodName = (String) FieldUtils.readField(action, "methodName");
                                 //String methodName;,int type; Object value;
                                 if ("setImageResource".equals(methodName)) { //setInt(viewId, "setImageResource", srcId);
@@ -242,16 +242,16 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                                     FieldUtils.writeField(action, "value", bitmap);
                                     FieldUtils.writeField(action, "methodName", "setImageBitmap");
                                 } else if ("setImageURI".equals(methodName)) {//setUri(viewId, "setImageURI", uri);
-                                    iterable.remove();   //TODO RemoteViews.setImageURI 其实应该适配的。
+                                    iterable.remove();   // TODO RemoteViews.setImageURI should actually adapted.
                                 } else if ("setLabelFor".equals(methodName)) {
-                                    iterable.remove();   //TODO RemoteViews.setLabelFor 其实应该适配的。
+                                    iterable.remove();   // TODO RemoteViews.setLabelFor should actually adapted.
                                 }
                             } else if (TextViewDrawableActionClass != null && TextViewDrawableActionClass.isInstance(action)) {
                                 iterable.remove();
 //                                if ("setTextViewCompoundDrawables".equals(methodName)) {
-//                                    iterable.remove();   //TODO RemoteViews.setTextViewCompoundDrawables 其实应该适配的。
+// Iterable.remove (); // TODO RemoteViews.setTextViewCompoundDrawables should actually adapted.
 //                                } else if ("setTextViewCompoundDrawablesRelative".equals(methodName)) {
-//                                    iterable.remove();   //TODO RemoteViews.setTextViewCompoundDrawablesRelative 其实应该适配的。
+// Iterable.remove (); // TODO RemoteViews.setTextViewCompoundDrawablesRelative should actually adapted.
 //                                }
                             }
                         }
@@ -469,7 +469,7 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
-            //这里适配在android 5.0的机器上无法现实toast的问题。但是我也不知道还有那些机器需要这样做。
+            // Here adapter on android 5.0 machine can not toast the real problem. But I do not know those machines to do so.
             if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
                 int index = 1;
                 if (args != null && args.length > index) {
@@ -537,7 +537,7 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                         Log.e(TAG, "We has blocked a notification[%s]", notification);
                         return true;
                     } else {
-                        //这里要修改通知。
+                        // Here To modify the notification.
                         hackNotification(notification);
                         return false;
                     }
@@ -572,7 +572,7 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                         Log.e(TAG, "We has blocked a notification[%s]", notification);
                         return true;
                     } else {
-                        //这里要修改通知。
+                        // Here To modify the notification.
                         hackNotification(notification);
                         return false;
                     }

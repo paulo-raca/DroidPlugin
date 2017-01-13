@@ -52,17 +52,17 @@ public class PluginClassLoader extends DexClassLoader {
         if (Build.MANUFACTURER != null && sPreLoader.contains(Build.MANUFACTURER.toUpperCase())) {
             try {
                 /**
-                 * FUCK QIKU！
-                 * 这里适配奇酷手机青春版。
-                 * 因为奇酷手机自己加载了自己修改过的的Support V4库，在插件中也用了这个库的时候，ClassLoader会优先加载奇酷手机自带的Support V4库。
-                 * 原因在于，奇酷手机没有预加载插件中打的Support V4库。详情可以研究super.loadClass(className, resolve)标准实现
-                 * 但是这可能会导致类不兼容，出现java.lang.IncompatibleClassChangeError。因为插件编译时使用的插件的Support V4，而奇酷手机则使
-                 * 用的是它修改过的Support V4。
-                 *
-                 * SO,在Class Loader加载某个Class的时候，我们优先从自己的ClassLoader中加载Class，如果找不到，再从Parent Class Loader中去加载。
-                 * 这样修改后，Class的加载顺序就跟系统的不一样了。
-                 *
-                 */
+                 * FUCK QIKU!
+                 * This adapter odd cool youth version of the phone.
+                 * Because the odd cool phone loaded their own modified the Support V4 libraries in the plug-in is also used when the library, ClassLoader will give priority to load the odd cool phone comes with Support V4 library.
+                 * The reason is that the odd cool phone is not pre-loaded plug-in play Support V4 library. Details can be studied super.loadClass (className, resolve) standard implementation
+                 * However, this may result in the class are not compatible, there java.lang.IncompatibleClassChangeError. Because the plug-in was compiled with plug Support V4, while the odd cool phone makes
+                 * Using its modified Support V4.
+                 *
+                 * SO, in Class Loader to load a Class, we loaded first Class from its own ClassLoader, and if not, then go from Parent Class Loader loaded.
+                 * After this modification, Class load order system just it is not the same.
+                 *
+                 */
                 Class<?> clazz = findClass(className);
                 if (clazz != null) {
                     return clazz;

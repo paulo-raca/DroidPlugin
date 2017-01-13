@@ -74,11 +74,11 @@ public class PluginCallbackHook extends Hook {
         Object target = ActivityThreadCompat.currentActivityThread();
         Class ActivityThreadClass = ActivityThreadCompat.activityThreadClass();
 
-        /*替换ActivityThread.mH.mCallback，拦截组件调度消息*/
+        /* Replace ActivityThread.mH.mCallback, intercepting assembly scheduling message */
         Field mHField = FieldUtils.getField(ActivityThreadClass, "mH");
         Handler handler = (Handler) FieldUtils.readField(mHField, target);
         Field mCallbackField = FieldUtils.getField(Handler.class, "mCallback");
-        //*这里读取出旧的callback并处理*/
+        * // Here to read the old callback and process * /
         Object mCallback = FieldUtils.readField(mCallbackField, handler);
         if (!PluginCallback.class.isInstance(mCallback)) {
             PluginCallback value = mCallback != null ? new PluginCallback(mHostContext, handler, (Handler.Callback) mCallback) : new PluginCallback(mHostContext, handler, null);

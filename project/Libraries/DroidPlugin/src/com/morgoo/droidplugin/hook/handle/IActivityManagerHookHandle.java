@@ -508,7 +508,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API 21
         /*public boolean finishActivity(IBinder token, int code, Intent data, boolean finishTask)
             throws RemoteException;*/
-        //FIXME 先不修改。
+        // FIXME to not modify.
     }
 
     private static class registerReceiver extends ReplaceCallingPackageHookedMethodHandler {
@@ -570,7 +570,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             String resolvedType, IIntentReceiver resultTo, int resultCode,
             String resultData, Bundle map, String requiredPermission,
             int appOp, boolean serialized, boolean sticky, int userId) throws RemoteException;*/
-        //TODO 广播相关的，研究完了再修改。
+        // TODO broadcast-related research over again modified.
 
 
         @Override
@@ -585,12 +585,12 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
         private boolean checkAndProcessIntent(Intent intent) throws RemoteException {
             if (Env.ACTION_INSTALL_SHORTCUT.equals(intent.getAction())) {
-                //安装快捷方式的.我们都需要处理
+                // Install shortcuts. We all need to be addressed
                 Intent shortcutIntent = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
                 if (shortcutIntent != null) {
                     ComponentName componentName = shortcutIntent.resolveActivity(mHostContext.getPackageManager());
                     if (componentName != null && PluginManager.getInstance().isPluginPackage(componentName.getPackageName())) {
-                        //如果是插件，就把快捷方式Intent换成插件自己的，然后我们再跳转
+                        // If the plug, put shortcuts Intent plug into their own, and then we jump
                         Intent newShortcutIntent = new Intent(PluginManager.ACTION_SHORTCUT_PROXY);
                         newShortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
                         newShortcutIntent.putExtra(Env.EXTRA_TARGET_INTENT, shortcutIntent);
@@ -599,7 +599,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, newShortcutIntent);
 
 
-                        //替换图标
+                        // Replace icon
                         Intent.ShortcutIconResource icon = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
                         if (icon != null && !TextUtils.equals(icon.packageName, mHostContext.getPackageName())) {
                             try {
@@ -630,12 +630,12 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 }
                 return false;
             } else if (Env.ACTION_UNINSTALL_SHORTCUT.equals(intent.getAction())) {
-                //卸载快捷方式的。我们都需要处理
+                // Uninstall shortcut. We all need to be addressed
                 Intent shortcutIntent = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
                 if (shortcutIntent != null) {
                     ComponentName componentName = shortcutIntent.resolveActivity(mHostContext.getPackageManager());
                     if (componentName != null && PluginManager.getInstance().isPluginPackage(componentName.getPackageName())) {
-                        //如果是插件，就把快捷方式Intent换成插件自己的，然后我们再
+                        // If the plug, put shortcuts Intent plug into their own, and then we
                         Intent newShortcutIntent = new Intent(mHostContext, ShortcutProxyActivity.class);
                         newShortcutIntent.putExtra(Env.EXTRA_TARGET_INTENT, shortcutIntent);
                         intent.removeExtra(Intent.EXTRA_SHORTCUT_INTENT);
@@ -672,7 +672,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         /*  public void unbroadcastIntent(IApplicationThread caller, Intent intent) throws RemoteException;*/
         //API 16,17,18,19,21
         /*public void unbroadcastIntent(IApplicationThread caller, Intent intent, int userId) throws RemoteException;*/
-        //TODO 广播相关的，研究完了再修改。
+        // TODO broadcast-related research over again modified.
     }
 
     private static class getCallingPackage extends ReplaceCallingPackageHookedMethodHandler {
@@ -695,7 +695,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API  2.3,15,16,17,18,19, 21
         /*  public ComponentName getCallingActivity(IBinder token) throws RemoteException;*/
         //FIXME I don't know what function of this,just hook it.
-        //也不知道这个是干嘛的。是返回此Activity是由谁调起的么？
+        // Do not know this is doing. This Activity is who is to return from the tone of it?
     }
 
     private static class getAppTasks extends ReplaceCallingPackageHookedMethodHandler {
@@ -717,7 +717,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API 21
         /* public int addAppTask(IBinder activityToken, Intent intent,
             ActivityManager.TaskDescription description, Bitmap thumbnail) throws RemoteException;*/
-        //FIXME api21的不知道干嘛的，先不修改吧。
+        // FIXME api21 do not know why, and to not modify it.
     }
 
     private static class getTasks extends ReplaceCallingPackageHookedMethodHandler {
@@ -734,7 +734,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                          IThumbnailReceiver receiver) throws RemoteException;*/
         //API 21
         /* public List<RunningTaskInfo> getTasks(int maxNum, int flags) throws RemoteException;*/
-        //FIXME 这里需要把原来函数返回的 List<RunningTaskInfo>中关于代理activity修改成插件自己的。
+        // FIXME here we need the original function returns a List <RunningTaskInfo> regarding proxy activity modified to plug their own.
 
 //        @Override
 //        protected void afterInvoke(Object receiver, Method method, Object[] args, Object invokeResult) throws Throwable {
@@ -809,8 +809,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
                     ProviderInfo info = mHostContext.getPackageManager().resolveContentProvider(name, 0);
                     mTargetProvider = PluginManager.getInstance().resolveContentProvider(name, 0);
-                    //这里有个很坑爹的事情，就是当插件的contentprovider和host的名称一样，冲突的时候处理方式。
-                    //在Android系统上，是不会出现这种事情的，因为系统在安装的时候做了处理。而我们目前没做处理。so，在出现冲突时候的时候优先用host的。
+                    // There is a pit father thing is that when the name of the widget contentprovider and host, like when conflicts are handled.
+                    // On Android system, this kind of thing will not happen, because the system when the installation done a deal. And we do not currently deal with. so, in the event of a conflict with the time when the priority of the host.
                     if (mTargetProvider != null && info != null && TextUtils.equals(mTargetProvider.packageName, info.packageName)) {
                         mStubProvider = PluginManager.getInstance().selectStubProviderInfo(name);
 //                        PluginManager.getInstance().reportMyProcessName(mStubProvider.processName, mTargetProvider.processName);
@@ -834,7 +834,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             if (invokeResult != null) {
                 ProviderInfo stubProvider2 = (ProviderInfo) FieldUtils.readField(invokeResult, "info");
                 if (mStubProvider != null && mTargetProvider != null && TextUtils.equals(stubProvider2.authority, mStubProvider.authority)) {
-                    //FIXME 其实这里写的并不好，需要适配各种机型。这里就先这样吧。
+                    // FIXME actually written here is not good, we need to fit a variety of models. Here first so be it.
                     Object fromObj = invokeResult;
                     Object toObj = ContentProviderHolderCompat.newInstance(mTargetProvider);
                     //toObj.provider = fromObj.provider;
@@ -922,7 +922,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API  2.3,15,16,17,18,19, 21
         /*    public void publishContentProviders(IApplicationThread caller,
             List<ContentProviderHolder> providers) throws RemoteException;*/
-        //TODO 发布ContentProvider
+        // TODO release ContentProvider
     }
 
     private static class getRunningServiceControlPanel extends ReplaceCallingPackageHookedMethodHandler {
@@ -934,8 +934,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API  2.3,15,16,17,18,19, 21
         /*    public PendingIntent getRunningServiceControlPanel(ComponentName service)
             throws RemoteException;*/
-        //FIXME 这里需要把service替换成代理服务吧？maybe.
-        //通过服务名称拿PendingIntent？搞不懂，不改。
+        // FIXME here you need to replace a service agent service, right? maybe.
+        // Get PendingIntent service name? Do not understand, do not change.
     }
 
     private static class startService extends ReplaceCallingPackageHookedMethodHandler {
@@ -1288,7 +1288,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             IUiAutomationConnection connection, int userId,
             String abiOverride) throws RemoteException;*/
 
-        //FIXME 单元测试用的。这个就不改了。
+        // FIXME unit testing purposes. This is not changed.
     }
 
     private static class getActivityClassForToken extends ReplaceCallingPackageHookedMethodHandler {
@@ -1300,7 +1300,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API  2.3,15,16,17,18,19, 21
        /* public ComponentName getActivityClassForToken(IBinder token) throws RemoteException;*/
         //FIXME I don't know what function of this,just hook it.
-        //通过token拿Activity？搞不懂，不改。
+        // Take Activity by token? Do not understand, do not change.
     }
 
     private static class getPackageForToken extends ReplaceCallingPackageHookedMethodHandler {
@@ -1312,7 +1312,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //API  2.3,15,16,17,18,19, 21
         /* public String getPackageForToken(IBinder token) throws RemoteException;*/
         //FIXME I don't know what function of this,just hook it.
-        //通过token拿包名？搞不懂，不改。
+        // Get the package through the token name? Do not understand, do not change.
     }
 
     public static class getIntentSender extends ReplaceCallingPackageHookedMethodHandler {
@@ -1347,7 +1347,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             int requestCode, Intent[] intents, String[] resolvedTypes,
             int flags, Bundle options, int userId) throws RemoteException;*/
 
-            //这里添加包名是为了欺骗系统而已。
+            // Add the package name here is just to cheat the system.
             final int index = 1;
             if (args != null && args.length > index && args[index] != null && args[index] instanceof String) {
                 String callerPackage = (String) args[index];
@@ -1357,9 +1357,9 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 }
             }
 
-            //这里我们用新的逻辑，将原来的PendingIntent.getXXX(XXX,XXX, Intent, XXX)全部替换成
+            // Here we use a new logic, the original PendingIntent.getXXX (XXX, XXX, Intent, XXX) all replaced
             //PendingIntent.getService(XXX,XXX,intetn,XXX)
-            //这样系统在处理的时候，会先调用到我们的中转服务，我们的中转服务再来处理这个事情。
+            // This system processes, it will first call to our transit services, transit services we come to deal with this matter.
             final int index5 = 5;
             boolean hasRelacedIntent = false;
             if (args != null && args.length > index5 && args[index5] != null) {
@@ -1526,8 +1526,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //API  17,18,19, 21
              /*public int handleIncomingUser(int callingPid, int callingUid, int userId, boolean allowAll,
             boolean requireFull, String name, String callerPackage) throws RemoteException;*/
-            //这个函数不知道是干嘛的
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function does not know is doing
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 final int index = 6;
                 if (args != null && args.length > index) {
@@ -1557,8 +1557,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //API 21
         /* public void grantUriPermission(IApplicationThread caller, String targetPkg, Uri uri,
             int mode, int userId) throws RemoteException;*/
-            //这个函数是用来给某个包授予访问某个URI的权限。
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function is used to grant access to a package of a URI.
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             final int index = 1;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1583,8 +1583,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             // 19,21
             /*    public ParceledListSlice<UriPermission> getPersistedUriPermissions(
             String packageName, boolean incoming) throws RemoteException;*/
-            //这个函数是用来检测什么权限，没搞明白。
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function is used to detect what authority, not understood.
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             final int index = 0;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1663,9 +1663,9 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //2.3,15,16,17,18,19,21
              /*    public List<ActivityManager.RunningAppProcessInfo> getRunningAppProcesses()
             throws RemoteException;*/
-            //这个hook有点不同。一般插件调用这个函数是为了获取自己当前进程的名字。
-            //所以要把原函数返回的List<ActivityManager.RunningAppProcessInfo>中关于插件的部分的进程名字给改了，用来欺骗插件。
-            //不过目前这种修改方式可能有问题。
+            // The hook a little bit different. General plug-in calls this function to get the name of their current process.
+            // So the process should the original function returns List <ActivityManager.RunningAppProcessInfo> Plug-in on the part of the name to change, and to deceive the plug.
+            // However, the current way of modification may be a problem.
             if (invokeResult != null && invokeResult instanceof List) {
                 @SuppressWarnings("unchecked")
                 List<Object> infos = (List<Object>) invokeResult;
@@ -1716,8 +1716,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //2.3,15,16,17,18,19,21
              /* public List<ApplicationInfo> getRunningExternalApplications()
             throws RemoteException;*/
-            //这个hook有点不同。
-            //我们把原函数返回的List<ApplicationInfo>中关于插件的部分给改了，用来欺骗插件，让其以为自己已经被安装了。咩哈哈！！
+            // The hook a little bit different.
+            // We have the original function returns List <ApplicationInfo> section about widget to change, and to deceive the plug, let the thought that they have been installed. Baa ha ha! !
             if (invokeResult != null && invokeResult instanceof List) {
                 @SuppressWarnings("unchecked")
                 List<Object> infos = (List<Object>) invokeResult;
@@ -1770,8 +1770,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //2.3,15,16,17,18,19,21
              /*public void crashApplication(int uid, int initialPid, String packageName,
             String message) throws RemoteException;*/
-            //这个函数不知道是用来干嘛的，也许是向系统报告自己崩溃了？神奇的函数。
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function is used to not know why, maybe himself is reported to the system collapse? Magical function.
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             final int index = 2;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1796,8 +1796,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //2.3,15,16,17,18,19,21
         /* public void grantUriPermissionFromOwner(IBinder owner, int fromUid, String targetPkg,
             Uri uri, int mode) throws RemoteException;*/
-            //这个函数是用来给某个包授予访问某个URI的权限。
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function is used to grant access to a package of a URI.
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             final int index = 2;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1826,8 +1826,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //API  21
           /* public int checkGrantUriPermission(int callingUid, String targetPkg, Uri uri,
             int modeFlags, int userId) throws RemoteException;*/
-            //这个函数是用来检测某个包是否具有访问某个URI的权限。
-            //插件调用这个函数会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // This function is used to detect whether a package has permission to access a URI.
+            // Plug-in calls this function will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             final int index = 1;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1866,7 +1866,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
        /* public int startActivities(IApplicationThread caller, String callingPackage,
             Intent[] intents, String[] resolvedTypes, IBinder resultTo,
             Bundle options, int userId) throws RemoteException;*/
-            //启动一坨Activity用的，用的比较少。不过为了保险起见也改改。
+            // Start Activity cook with, use less. But to be safe change to change.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 int index = 1;
                 String callingPackage = null;
@@ -1941,8 +1941,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
              /* public int getPackageScreenCompatMode(String packageName) throws RemoteException;*/
-            //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
-            //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // I do not know this function is doing, but since writing, we will change it.
+            // If the case because the plug-in calls this function, it will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 final int index = 0;
                 if (args != null && args.length > index) {
@@ -1969,8 +1969,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
              /* public void setPackageScreenCompatMode(String packageName, int mode)
             throws RemoteException;*/
-            //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
-            //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // I do not know this function is doing, but since writing, we will change it.
+            // If the case because the plug-in calls this function, it will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 final int index = 0;
                 if (args != null && args.length > index) {
@@ -1997,8 +1997,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 15, 16, 17, 18, 19, 21
              /* public boolean getPackageAskScreenCompat(String packageName) throws RemoteException;*/
-            //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
-            //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // I do not know this function is doing, but since writing, we will change it.
+            // If the case because the plug-in calls this function, it will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 final int index = 0;
                 if (args != null && args.length > index) {
@@ -2025,8 +2025,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             //API 15, 16, 17, 18, 19, 21
             /*public void setPackageAskScreenCompat(String packageName, boolean ask)
             throws RemoteException;*/
-            //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
-            //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
+            // I do not know this function is doing, but since writing, we will change it.
+            // If the case because the plug-in calls this function, it will pass its own plug-in package name, and this plug-in has not been installed. So call the original function passed to the system, it will go wrong. So change the package name of the host program.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 final int index = 0;
                 if (args != null && args.length > index) {
@@ -2052,7 +2052,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         /* public boolean navigateUpTo(IBinder token, Intent target, int resultCode, Intent resultData)
             throws RemoteException;*/
         //TODO replace target(Intent) to ProxyActivity
-        //这里先不做，测试如果有问题再处理。
+        // Here to do, to test if there are problems reprocessing.
     }
 
 
@@ -2066,9 +2066,9 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 if (proxyService != null) {
                     Intent newIntent = new Intent();
                     //FIXBUG：https://github.com/Qihoo360/DroidPlugin/issues/122
-                    //如果插件中有两个Service：ServiceA和ServiceB，在bind ServiceA的时候会调用ServiceA的onBind并返回其IBinder对象，
-                    // 但是再次bind ServiceA的时候还是会返回ServiceA的IBinder对象，这是因为插件系统对多个Service使用了同一个StubService
-                    // 来代理，而系统对StubService的IBinder做了缓存的问题。这里设置一个Action则会穿透这种缓存。
+                    // If there are two plug-in Service: ServiceA and ServiceB, when the bind ServiceA calls ServiceA of onBind and returns its IBinder object
+                    // But time again bind ServiceA or return ServiceA of IBinder objects, it is because a plurality of plug-in system for use with a StubService Service
+                    // To the agent, and the system StubService IBinder do caching issues. This sets an Action will penetrate this cache.
                     newIntent.setAction(proxyService.name + new Random().nextInt());
 
                     newIntent.setClassName(proxyService.packageName, proxyService.name);
@@ -2176,7 +2176,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     private static void tryfixServiceInfo(ActivityManager.RunningServiceInfo serviceInfo) {
-        //传入的是代理服务，要改成插件自己服务的信息。
+        // Incoming proxy services to plug into their own information services.
     }
 
     private class serviceDoneExecuting extends ReplaceCallingPackageHookedMethodHandler {

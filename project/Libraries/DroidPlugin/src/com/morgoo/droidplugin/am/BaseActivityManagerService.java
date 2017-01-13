@@ -50,7 +50,7 @@ public abstract class BaseActivityManagerService {
         mHostContext = hostContext;
     }
 
-    //查询某个进程中运行的插件包名列表
+    // Query package names list a process running in the plug-in
     public abstract List<String> getPackageNamesByPid(int pid);
 
     public abstract ActivityInfo selectStubActivityInfo(int callingPid, int callingUid, ActivityInfo targetInfo) throws RemoteException;

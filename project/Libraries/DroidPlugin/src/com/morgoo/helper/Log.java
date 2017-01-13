@@ -135,7 +135,7 @@ public class Log {
                 return;
             }
 
-            //禁用LibCoreHook，防止方法循环调用。
+            // Disable LibCoreHook, method for preventing the cycle call.
             HookFactory.getInstance().setHookEnable(LibCoreHook.class, false);
 
 

@@ -20,10 +20,10 @@ public abstract class LaunchModeTestActivity extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launchmode);
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("当前实例：" + this);
+        textView.setText("Current examples:" + this);
 
         TextView textView2 = (TextView) findViewById(R.id.textView2);
-        String text = "<b>当前Activity栈：</b><br/>" + getCurrentStack();
+        String text = "<B> Current Activity stack: </ b> <br/>" + getCurrentStack();
         textView2.setText(Html.fromHtml(text));
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);

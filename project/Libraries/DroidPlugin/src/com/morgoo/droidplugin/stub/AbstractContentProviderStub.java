@@ -271,7 +271,7 @@ public abstract class AbstractContentProviderStub extends ContentProvider {
 
     @Override
     public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
-//TODO applyBatch转发
+// TODO applyBatch forwarding
 //        if (operations != null && operations.size() > 0) {
 //            ArrayList<ContentProviderOperation> OldOperations = new ArrayList<ContentProviderOperation>();
 //            Map<String, ArrayList<ContentProviderOperation>> newOperations = new HashMap<String, ArrayList<ContentProviderOperation>>();
@@ -310,7 +310,7 @@ public abstract class AbstractContentProviderStub extends ContentProvider {
 //                        }
 //                    }
 //                }
-//                //这一步必须要在主线程中执行，这里还有bug
+// // This step must be executed in the main thread, there are bug
 //
 //            }
 //        }

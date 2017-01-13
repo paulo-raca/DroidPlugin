@@ -47,9 +47,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * 正在运行的进程列表
- * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
- */
+ * A list of running processes
+ * Created by Andy Zhang (zhangyong232@gmail.com) on 2015/3/10.
+ */
 class RunningProcesList {
 
     private static final Collator sCollator = Collator.getInstance();
@@ -93,7 +93,7 @@ class RunningProcesList {
     }
 
     public boolean isPersistentApplication(int pid) {
-        //是否是持久化的app。
+        // If it is persistent app.
         for (ProcessItem processItem : items.values()) {
             if (processItem.pid == pid) {
 
@@ -164,10 +164,10 @@ class RunningProcesList {
 
 
     /**
-     * 正在运行的进程item
-     * <p/>
-     * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
-     */
+     * Running process item
+     * <P />
+     * Created by Andy Zhang (zhangyong232@gmail.com) on 2015/3/10.
+     */
     private class ProcessItem {
 
         private String stubProcessName;
@@ -178,30 +178,30 @@ class RunningProcesList {
 
         private List<String> pkgs = new ArrayList<String>(1);
 
-        //正在运行的插件ActivityInfo
+        // Running plug ActivityInfo
         //key=ActivityInfo.name, value=插件的ActivityInfo,
         private Map<String, ActivityInfo> targetActivityInfos = new HashMap<String, ActivityInfo>(4);
 
 
-        //正在运行的插件ProviderInfo
+        // Running plug ProviderInfo
         //key=ProviderInfo.authority, value=插件的ProviderInfo
         private Map<String, ProviderInfo> targetProviderInfos = new HashMap<String, ProviderInfo>(1);
 
-        //正在运行的插件ServiceInfo
+        // Running plug ServiceInfo
         //key=ServiceInfo.name, value=插件的ServiceInfo
         private Map<String, ServiceInfo> targetServiceInfos = new HashMap<String, ServiceInfo>(1);
 
 
-        //正在运行的插件ActivityInfo与代理ActivityInfo的映射
+        // Plugins ActivityInfo running the proxy mapping ActivityInfo
         //key=代理ActivityInfo.name, value=插件的ActivityInfo.name,
         private Map<String, Set<ActivityInfo>> activityInfosMap = new HashMap<String, Set<ActivityInfo>>(4);
 
 
-        //正在运行的插件ProviderInfo与代理ProviderInfo的映射
+        // Plugins running ProviderInfo and proxy ProviderInfo map
         //key=代理ProviderInfo.authority, value=插件的ProviderInfo.authority,
         private Map<String, Set<ProviderInfo>> providerInfosMap = new HashMap<String, Set<ProviderInfo>>(4);
 
-        //正在运行的插件ServiceInfo与代理ServiceInfo的映射
+        // Plugins ServiceInfo running the proxy mapping ServiceInfo
         //key=代理ServiceInfo.name, value=插件的ServiceInfo.name,
         private Map<String, Set<ServiceInfo>> serviceInfosMap = new HashMap<String, Set<ServiceInfo>>(4);
 
@@ -583,7 +583,7 @@ class RunningProcesList {
     }
 
     void onProcessDied(int pid, int uid) {
-        //进程死掉的时候，移除相关item
+        // Process dead time, removed the item
         items.remove(pid);
     }
 

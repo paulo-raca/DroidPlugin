@@ -56,24 +56,24 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
 
     private void doUninstall(final ApkItem item) {
         AlertDialog.Builder builder = new Builder(getActivity());
-        builder.setTitle("警告，你确定要删除么？");
-        builder.setMessage("警告，你确定要删除" + item.title + "么？");
-        builder.setNegativeButton("删除", new DialogInterface.OnClickListener() {
+        builder.setTitle("Warning, you sure you want to delete it?");
+        builder.setMessage("Warning Are you sure you want to delete" + item.title + "What?");
+        builder.setNegativeButton("delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!PluginManager.getInstance().isConnected()) {
-                    Toast.makeText(getActivity(), "服务未连接", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Service is not connected.", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         PluginManager.getInstance().deletePackage(item.packageInfo.packageName, 0);
-                        Toast.makeText(getActivity(), "删除完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Delete completed", Toast.LENGTH_SHORT).show();
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-        builder.setNeutralButton("取消", null);
+        builder.setNeutralButton("cancel", null);
         builder.show();
     }
 
@@ -139,7 +139,7 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
                 version.setText(String.format("%s(%s)", item.versionName, item.versionCode));
 
                 TextView btn = (TextView) convertView.findViewById(R.id.button2);
-                btn.setText("打开");
+                btn.setText("turn on");
                 btn.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -149,7 +149,7 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
                 });
 
                 btn = (TextView) convertView.findViewById(R.id.button3);
-                btn.setText("卸载");
+                btn.setText("Uninstall");
                 btn.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -167,7 +167,7 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setEmptyText("没有安装插件");
+        setEmptyText("There is no plug-in installed.");
         setListAdapter(adapter);
         setListShown(false);
         getListView().setOnItemClickListener(null);

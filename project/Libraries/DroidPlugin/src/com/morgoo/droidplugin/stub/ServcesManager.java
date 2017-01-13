@@ -98,7 +98,7 @@ public class ServcesManager {
         return null;
     }
 
-    //这个需要适配,目前只是适配android api 21
+    // This adapter required, currently only adaptation android api 21
     private void handleCreateServiceOne(Context hostContext, Intent stubIntent, ServiceInfo info) throws Exception {
         //            CreateServiceData data = new CreateServiceData();
         //            data.token = fakeToken;// IBinder

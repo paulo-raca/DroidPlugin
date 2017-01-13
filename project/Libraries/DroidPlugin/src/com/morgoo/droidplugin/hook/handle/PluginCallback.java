@@ -232,11 +232,11 @@ public class PluginCallback implements Handler.Callback {
 
             if (PluginProcessManager.isPluginProcess(mHostContext)) {
                 if (!PluginManager.getInstance().isConnected()) {
-                    //这里必须要这么做。如果当前进程是插件进程，并且，还没有绑定上插件管理服务，我们则把消息延迟一段时间再处理。
-                    //这样虽然会降低启动速度，但是可以解决在没绑定服务就启动，会导致的一系列时序问题。
+                    // This must be so. If the current process is the plug-in process and not yet binding on the plug-in management services, we put the news a delay reprocessing.
+                    // So although it will slow down the start, but can not solve the service is bound to start a series of timing issues can result.
                     Log.i(TAG, "handleMessage not isConnected post and wait,msg=%s", msg);
                     mOldHandle.sendMessageDelayed(Message.obtain(msg), 5);
-                    //返回true，告诉下面的handle不要处理了。
+                    // Returns true, tell the following handle do not deal with.
                     return true;
                 }
             }
@@ -312,7 +312,7 @@ public class PluginCallback implements Handler.Callback {
 //
 //    private boolean handleBindService(Message msg) {
 //        // handleBindService((BindServiceData)msg.obj);
-//        //其实这里什么都不用做的。
+// // In fact, we do not have anything to do here.
 //        try {
 //            Object obj = msg.obj;
 //            Intent intent = (Intent) FieldUtils.readField(obj, "intent", true);
@@ -356,9 +356,9 @@ public class PluginCallback implements Handler.Callback {
             //ActivityInfo activityInfo = (ActivityInfo) FieldUtils.readField(obj, "activityInfo", true);
             stubIntent.setExtrasClassLoader(mHostContext.getClassLoader());
             Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
-            // 这里多加一个isNotShortcutProxyActivity的判断，因为ShortcutProxyActivity的很特殊，启动它的时候，
-            // 也会带上一个EXTRA_TARGET_INTENT的数据，就会导致这里误以为是启动插件Activity，所以这里要先做一个判断。
-            // 之前ShortcutProxyActivity错误复用了key，但是为了兼容，所以这里就先这么判断吧。
+            // Here one more isNotShortcutProxyActivity judgment because ShortcutProxyActivity very special, it's time to start,
+            // Will bring a EXTRA_TARGET_INTENT data will lead to this mistaken launching plug Activity, so here to do a judgment.
+            // Error before ShortcutProxyActivity reuse the key, but in order to be compatible, so there will be such a judge.
             if (targetIntent != null && !isShortcutProxyActivity(stubIntent)) {
                 IPackageManagerHook.fixContextPackageManager(mHostContext);
                 ComponentName targetComponentName = targetIntent.resolveActivity(mHostContext.getPackageManager());

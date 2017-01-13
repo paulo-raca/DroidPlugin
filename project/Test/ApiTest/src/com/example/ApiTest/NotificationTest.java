@@ -45,12 +45,12 @@ public class NotificationTest extends AppCompatActivity implements OnClickListen
             builder.setContentIntent(pd);
             builder.setWhen(System.currentTimeMillis());
             nm.notify(ID, builder.build());
-            String msg = "发送通知1成功";
+            String msg = "Send Notification 1 success";
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button2) {
             nm.cancel(ID);
-            String msg = "取消通知1成功";
+            String msg = "Cancellation notice a success.";
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button3) {
@@ -65,13 +65,13 @@ public class NotificationTest extends AppCompatActivity implements OnClickListen
             builder.setContentIntent(pd);
             builder.setWhen(System.currentTimeMillis());
             nm.notify("tag1", ID2, builder.build());
-            String msg = "发送通知2成功";
+            String msg = "Send Notification 2 success";
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         } else if (id == R.id.button4) {
 
             nm.cancel("tag1", ID2);
-            String msg = "取消通知2成功";
+            String msg = "Cancellation notice 2 success";
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             Log.e(TAG, msg);
         }

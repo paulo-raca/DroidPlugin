@@ -108,7 +108,7 @@ public class IntentMatcher {
                     return list;
                 }
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
             Collections.sort(list, mResolvePrioritySorter);
             return list;
@@ -121,7 +121,7 @@ public class IntentMatcher {
             if (parser != null) {
                 queryIntentReceiverForPackage(context, parser, intent, flags, list);
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
         } else {
             for (PluginPackageParser parser : pluginPackages.values()) {
@@ -161,7 +161,7 @@ public class IntentMatcher {
                 }
 
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
             Collections.sort(list, mResolvePrioritySorter);
             return list;
@@ -174,7 +174,7 @@ public class IntentMatcher {
             if (parser != null) {
                 queryIntentServiceForPackage(context, parser, intent, flags, list);
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
         } else {
             for (PluginPackageParser parser : pluginPackages.values()) {
@@ -211,7 +211,7 @@ public class IntentMatcher {
                     return list;
                 }
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
             Collections.sort(list, mResolvePrioritySorter);
             return list;
@@ -224,7 +224,7 @@ public class IntentMatcher {
             if (parser != null) {
                 queryIntentProviderForPackage(context, parser, intent, flags, list);
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
         } else {
             for (PluginPackageParser parser : pluginPackages.values()) {
@@ -262,7 +262,7 @@ public class IntentMatcher {
                     return list;
                 }
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
             Collections.sort(list, mResolvePrioritySorter);
             return list;
@@ -275,7 +275,7 @@ public class IntentMatcher {
             if (parser != null) {
                 queryIntentActivityForPackage(context, parser, intent, flags, list);
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
         } else {
             for (PluginPackageParser parser : pluginPackages.values()) {
@@ -327,7 +327,7 @@ public class IntentMatcher {
                     return list;
                 }
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
             Collections.sort(list, mResolvePrioritySorter);
             return list;
@@ -343,7 +343,7 @@ public class IntentMatcher {
                 queryIntentProviderForPackage(context, parser, intent, flags, list);
                 queryIntentReceiverForPackage(context, parser, intent, flags, list);
             } else {
-                //intent指定的包名不在我们的插件列表中。
+                // Intent specified package name is not on our list of plug-ins.
             }
         } else {
             for (PluginPackageParser parser : pluginPackages.values()) {
@@ -375,7 +375,7 @@ public class IntentMatcher {
                                     resolveInfo.isDefault = true;
                                     outList.add(resolveInfo);
                                 } else {
-                                    //只是匹配默认。这里也算匹配不上。
+                                    // Just match the default. There is also counted on not match.
                                 }
                             } else {
                                 ResolveInfo resolveInfo = newResolveInfo(flagInfo, intentFilter);
@@ -386,14 +386,14 @@ public class IntentMatcher {
                         }
                     }
                     if (outList.size() <= 0) {
-                        //没有在插件包中找到IntentFilter匹配的ACTIVITY
+                        // No match found IntentFilter ACTIVITY plug-in package
                     }
                 } else {
-                    //该插件包中没有具有IntentFilter的ACTIVITY
+                    // The plugin package does not have an IntentFilter ACTIVITY
                 }
             }
         } else {
-            //该插件apk包中没有ACTIVITY
+            // The package does not plug apk ACTIVITY
         }
     }
 
@@ -415,7 +415,7 @@ public class IntentMatcher {
                                     resolveInfo.isDefault = true;
                                     outList.add(resolveInfo);
                                 } else {
-                                    //只是匹配默认。这里也算匹配不上。
+                                    // Just match the default. There is also counted on not match.
                                 }
                             } else {
                                 ResolveInfo resolveInfo = newResolveInfo(flagInfo, intentFilter);
@@ -426,14 +426,14 @@ public class IntentMatcher {
                         }
                     }
                     if (outList.size() <= 0) {
-                        //没有在插件包中找到IntentFilter匹配的Service
+                        // No match found IntentFilter Service plug-in package
                     }
                 } else {
-                    //该插件包中没有具有IntentFilter的Service
+                    // The plugin does not have the Service Pack IntentFilter
                 }
             }
         } else {
-            //该插件apk包中没有Service
+            // The package does not plug apk Service
         }
     }
 
@@ -455,7 +455,7 @@ public class IntentMatcher {
                                     resolveInfo.isDefault = true;
                                     outList.add(resolveInfo);
                                 } else {
-                                    //只是匹配默认。这里也算匹配不上。
+                                    // Just match the default. There is also counted on not match.
                                 }
                             } else {
                                 ResolveInfo resolveInfo = newResolveInfo(flagServiceInfo, intentFilter);
@@ -466,14 +466,14 @@ public class IntentMatcher {
                         }
                     }
                     if (outList.size() <= 0) {
-                        //没有在插件包中找到IntentFilter匹配的Service
+                        // No match found IntentFilter Service plug-in package
                     }
                 } else {
-                    //该插件包中没有具有IntentFilter的Service
+                    // The plugin does not have the Service Pack IntentFilter
                 }
             }
         } else {
-            //该插件apk包中没有Service
+            // The package does not plug apk Service
         }
     }
 
@@ -495,7 +495,7 @@ public class IntentMatcher {
                                     resolveInfo.isDefault = true;
                                     outList.add(resolveInfo);
                                 } else {
-                                    //只是匹配默认。这里也算匹配不上。
+                                    // Just match the default. There is also counted on not match.
                                 }
                             } else {
                                 ResolveInfo resolveInfo = newResolveInfo(flagInfo, intentFilter);
@@ -506,14 +506,14 @@ public class IntentMatcher {
                         }
                     }
                     if (outList.size() <= 0) {
-                        //没有在插件包中找到IntentFilter匹配的ACTIVITY
+                        // No match found IntentFilter ACTIVITY plug-in package
                     }
                 } else {
-                    //该插件包中没有具有IntentFilter的ACTIVITY
+                    // The plugin package does not have an IntentFilter ACTIVITY
                 }
             }
         } else {
-            //该插件apk包中没有ACTIVITY
+            // The package does not plug apk ACTIVITY
         }
     }
 
@@ -526,7 +526,7 @@ public class IntentMatcher {
         resolveInfo.labelRes = providerInfo.labelRes;
         resolveInfo.icon = providerInfo.icon;
         resolveInfo.specificIndex = 1;
-//      默认就是false，不用再设置了。
+// Default is false, no longer set.
 //        resolveInfo.system = false;
         resolveInfo.priority = intentFilter.getPriority();
         resolveInfo.preferredOrder = 0;
@@ -542,7 +542,7 @@ public class IntentMatcher {
         resolveInfo.icon = serviceInfo.icon;
         resolveInfo.specificIndex = 1;
 //        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-//          默认就是false，不用再设置了。
+// Default is false, no longer set.
 //        resolveInfo.system = false;
 //        }
         resolveInfo.priority = intentFilter.getPriority();
@@ -559,7 +559,7 @@ public class IntentMatcher {
         resolveInfo.icon = activityInfo.icon;
         resolveInfo.specificIndex = 1;
 //        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) {
-////            默认就是false，不用再设置了。
+//// The default is false, no longer set.
 //            resolveInfo.system = false;
 //        }
         resolveInfo.priority = intentFilter.getPriority();

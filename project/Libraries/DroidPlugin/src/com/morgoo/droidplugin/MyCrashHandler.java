@@ -143,7 +143,7 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
             writer.println("----------------------------Exception StackTrace:");
             ex.printStackTrace(writer);
         } catch (Throwable e) {
-            Log.e(TAG, "记录uncaughtException", e);
+            Log.e(TAG, "Record uncaughtException", e);
         } finally {
             try {
                 if (writer != null) {

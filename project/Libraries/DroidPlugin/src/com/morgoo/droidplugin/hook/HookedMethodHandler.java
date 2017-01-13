@@ -70,8 +70,8 @@ public class HookedMethodHandler {
     }
 
     /**
-     * 在某个方法被调用之前执行，如果返回true，则不执行原始的方法，否则执行原始方法
-     */
+     * Prior to the implementation of a method is called, if it returns true, the original method is not executed, else the original method
+     */
     protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
         return false;
     }

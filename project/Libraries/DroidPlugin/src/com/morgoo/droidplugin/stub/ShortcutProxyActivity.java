@@ -49,7 +49,7 @@ public class ShortcutProxyActivity extends Activity {
                 if (forwordIntent != null) {
                     forwordIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     forwordIntent.putExtras(intent);
-                    //安全审核问题
+                    // Security audit issues
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                         forwordIntent.setSelector(null);
                     }

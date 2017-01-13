@@ -16,7 +16,7 @@ public abstract class BaseService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        String msg = String.format(">>服务%s:onBind,intent=%s", tag, intent);
+        String msg = String.format(">> Services% s: onBind, intent =% s", tag, intent);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.e(tag, msg);
         return null;
@@ -24,7 +24,7 @@ public abstract class BaseService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        String msg = String.format(">>服务%s:onUnbind,intent=%s", tag, intent);
+        String msg = String.format(">> Services% s: onUnbind, intent =% s", tag, intent);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.e(tag, msg);
         return super.onUnbind(intent);
@@ -33,7 +33,7 @@ public abstract class BaseService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        String msg = String.format(">>服务%s:onCreate", tag);
+        String msg = String.format(">> Services% s: onCreate", tag);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.e(tag, msg);
     }
@@ -56,7 +56,7 @@ public abstract class BaseService extends Service {
 
     @Override
     public void onDestroy() {
-        String msg = String.format(">>服务%s:onDestroy", tag);
+        String msg = String.format(">> 服务% s: onDestroy", tag);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.e(tag, msg);
         super.onDestroy();
@@ -64,7 +64,7 @@ public abstract class BaseService extends Service {
 
     @Override
     public void onRebind(Intent intent) {
-        String msg = String.format(">>服务%s:onRebind,intent=%s", tag, intent);
+        String msg = String.format(">> Services% s: onRebind, intent =% s", tag, intent);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Log.e(tag, msg);
         super.onRebind(intent);

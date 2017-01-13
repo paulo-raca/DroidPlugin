@@ -755,7 +755,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         /*public List<ResolveInfo> queryIntentActivityOptions(ComponentName caller, Intent[] specifics, String[] specificTypes, Intent intent, String resolvedType, int flags) throws RemoteException;*/
         //API 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /* public List<ResolveInfo> queryIntentActivityOptions(ComponentName caller, Intent[] specifics, String[] specificTypes, Intent intent, String resolvedType, int flags, int userId) throws RemoteException;*/
-        //TODO 这里需要实现。查询插件的结果，并入到返回值中。
+        // TODO here need to achieve. Results of the query widget incorporated into the return value.
     }
 
     private class queryIntentReceivers extends HookedMethodHandler {
@@ -1172,7 +1172,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         }
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /*  public void querySyncProviders(List<String> outNames, List<ProviderInfo> outInfo) throws RemoteException;*/
-        //TODO 查询插件的结果并入到返回值中。
+        // TODO result query widget incorporated into the return value.
     }
 
     private class queryContentProviders extends HookedMethodHandler {
@@ -1182,7 +1182,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /*public List<ProviderInfo> queryContentProviders(String processName, int uid, int flags) throws RemoteException;*/
-        //TODO 查询插件的结果并入到返回值中。
+        // TODO result query widget incorporated into the return value.
     }
 
     private class getInstrumentationInfo extends HookedMethodHandler {
@@ -1192,7 +1192,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /*public InstrumentationInfo getInstrumentationInfo(ComponentName className, int flags) throws RemoteException;*/
-        //FIXME 自动化测试相关的东西，先不处理。
+        // FIXME things related to automated testing, to not deal with.
     }
 
     private class queryInstrumentation extends HookedMethodHandler {
@@ -1202,7 +1202,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /*public List<InstrumentationInfo> queryInstrumentation(String targetPackage, int flags) throws RemoteException;*/
-        //FIXME 自动化测试相关的东西，先不处理。
+        // FIXME things related to automated testing, to not deal with.
     }
 
     private class getInstallerPackageName extends HookedMethodHandler {
@@ -1278,7 +1278,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         }
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /*public List<PackageInfo> getPreferredPackages(int flags) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class resetPreferredActivities extends HookedMethodHandler {
@@ -1287,7 +1287,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         }
         //API  4.3_r1, 4.4_r1, 5.0.2_r1
         /* public void resetPreferredActivities(int userId) throws android.os.RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class getLastChosenActivity extends HookedMethodHandler {
@@ -1296,7 +1296,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         }
         //API 4.4_r1, 5.0.2_r1
         /*public ResolveInfo getLastChosenActivity(Intent intent, String resolvedType, int flags) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class setLastChosenActivity extends HookedMethodHandler {
@@ -1306,7 +1306,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 4.4_r1, 5.0.2_r1
         /*public void setLastChosenActivity(Intent intent, String resolvedType, int flags, IntentFilter filter, int match, ComponentName activity) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class addPreferredActivity extends HookedMethodHandler {
@@ -1318,7 +1318,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         /* public void addPreferredActivity(IntentFilter filter, int match, ComponentName[] set, ComponentName activity) throws RemoteException;*/
         //API  4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /* public void addPreferredActivity(IntentFilter filter, int match, ComponentName[] set, ComponentName activity, int userId) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class replacePreferredActivity extends HookedMethodHandler {
@@ -1331,7 +1331,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 5.0.2_r1
         /*public void replacePreferredActivity(IntentFilter filter, int match, ComponentName[] set, ComponentName activity, int userId) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class clearPackagePreferredActivities extends HookedMethodHandler {
@@ -1363,7 +1363,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 2.3, 4.01, 4.0.3_r1, 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /* public int getPreferredActivities(List<IntentFilter> outFilters, List<ComponentName> outActivities, String packageName) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     //ONLY for 4.4_r1 or later
@@ -1374,7 +1374,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
         //API 4.4_r1, 5.0.2_r1
         /* public ComponentName getHomeActivities(List<ResolveInfo> outHomeCandidates) throws RemoteException;*/
-        //这里插件没有结果的，所以就不处理了。
+        // Plugins here no results, so we do not deal with.
     }
 
     private class setComponentEnabledSetting extends HookedMethodHandler {
@@ -1574,7 +1574,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         /*public void getPackageSizeInfo(String packageName, IPackageStatsObserver observer) throws RemoteException;*/
             //API 4.2_r1 4.3_r1, 4.4_r1, 5.0.2_r1
         /*public void getPackageSizeInfo(String packageName, int userHandle, IPackageStatsObserver observer) throws RemoteException;*/
-            //TODO 获取包大小。
+            // TODO obtain packet size.
             return super.beforeInvoke(receiver, method, args);
         }
     }

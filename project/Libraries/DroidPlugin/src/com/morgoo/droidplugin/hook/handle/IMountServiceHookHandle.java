@@ -71,7 +71,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                     }
                 }
 
-                //FIXME 这里这种暴力修改方式可能会产生问题。比如插件直接写死的情况。
+                // FIXME here this violence modifying the way that might cause problems. For example, to write directly to the plug-death situation.
                 final int index1 = 1;
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
@@ -101,7 +101,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                     }
                 }
             } else {
-                //FIXME 这里这种暴力修改方式可能会产生问题。比如插件直接写死的情况。
+                // FIXME here this violence modifying the way that might cause problems. For example, to write directly to the plug-death situation.
                 final int index1 = 0;
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];

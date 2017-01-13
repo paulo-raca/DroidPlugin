@@ -77,7 +77,7 @@ public class InstrumentationHook extends Hook {
         Object target = ActivityThreadCompat.currentActivityThread();
         Class ActivityThreadClass = ActivityThreadCompat.activityThreadClass();
 
-         /*替换ActivityThread.mInstrumentation，拦截组件调度消息*/
+         /* Replace ActivityThread.mInstrumentation, intercepting assembly scheduling message */
         Field mInstrumentationField = FieldUtils.getField(ActivityThreadClass, "mInstrumentation");
         Instrumentation mInstrumentation = (Instrumentation) FieldUtils.readField(mInstrumentationField, target);
         if (!PluginInstrumentation.class.isInstance(mInstrumentation)) {

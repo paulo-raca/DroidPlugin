@@ -39,8 +39,8 @@ public class MyProxy {
     }
 
     /**
-     * 判断某个异常是否已经在某个方法上声明了。
-     */
+     * Determine whether an exception has been declared on a method.
+     */
     public static boolean isMethodDeclaredThrowable(Method method, Throwable e) {
         if (e instanceof RuntimeException) {
             return true;
@@ -55,7 +55,7 @@ public class MyProxy {
             return false;
         }
 
-//bugfix,这个问题我也不知道为什么出现，先这么处理吧。
+// Bugfix, I do not know why this problem occurred, so deal with it first.
 //        java.lang.RuntimeException: Socket closed
 //        at com.morgoo.droidplugin.c.c.i.invoke(Unknown Source)
 //        at $Proxy9.accept(Native Method)

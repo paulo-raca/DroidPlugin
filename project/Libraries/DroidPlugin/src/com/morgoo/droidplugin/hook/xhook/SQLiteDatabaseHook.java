@@ -56,7 +56,7 @@ public class SQLiteDatabaseHook extends Hook {
         return null;
     }
 
-    //传入一个路径，比如/data/data/com.xxx.plugin/xxx 会替换成/data/data/插件宿主包名/Plugin/插件包名/data/插件包名
+    // Pass in a path, such as /data/data/com.xxx.plugin/xxx will be replaced with / data / data / plugin host package name / Plugin / plug-in package names / data / plugin package names
     private String tryReplacePath(String tarDir) {
         //mDataDir=/data/data/
         //mHostDataDir=/data/data/com.example.TestPlugin/

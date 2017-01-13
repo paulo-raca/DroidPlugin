@@ -55,10 +55,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 插件包管理服务的客户端实现。
- * <p/>
- * Code by Andy Zhang (zhangyong232@gmail.com) on  2015/2/11.
- */
+ * Plug-in package management service client implementation.
+ * <P />
+ * Code by Andy Zhang (zhangyong232@gmail.com) on 2015/2/11.
+ */
 public class PluginManager implements ServiceConnection {
 
     public static final String ACTION_PACKAGE_ADDED = "com.morgoo.doirplugin.PACKAGE_ADDED";
@@ -155,7 +155,7 @@ public class PluginManager implements ServiceConnection {
                 iterator.remove();
             }
         }
-        //服务连接断开，需要重新连接。
+        // Service disconnected, you need to reconnect.
         connectToService();
     }
 
@@ -178,10 +178,10 @@ public class PluginManager implements ServiceConnection {
 
 
     /**
-     * 提供超时设置的waitForConnected版本
-     *
-     * @param timeout，当超时时间大于0时超时设置生效
-     */
+     * Provide timeout setting waitForConnected version
+     *
+     * @param Timeout, timeout is greater than 0 when the timeout setting take effect
+     */
     public void waitForConnected(long timeout) {
         if (timeout > 0) {
             if (isConnected()) {

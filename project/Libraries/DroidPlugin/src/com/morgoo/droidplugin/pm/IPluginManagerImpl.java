@@ -69,9 +69,9 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 此服务模仿系统的PackageManagerService，提供对插件简单的管理服务。
- * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/12.
- */
+ * PackageManagerService imitate this service system, providing a simple plug-in management services.
+ * Created by Andy Zhang (zhangyong232@gmail.com) on 2015/2/12.
+ */
 public class IPluginManagerImpl extends IPluginManager.Stub {
 
     private static final String TAG = IPluginManagerImpl.class.getSimpleName();
